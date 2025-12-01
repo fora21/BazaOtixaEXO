@@ -2,11 +2,13 @@ function initSlider() {
     const slider = document.getElementById('reviewsSlider');
     const prevBtn = document.querySelector('.slider-btn.prev');
     const nextBtn = document.querySelector('.slider-btn.next');
+    const swipeHint = document.querySelector('.swipe-hint');
     let currentSlide = 0;
     let autoSlideInterval;
     let touchStartX = 0;
     let touchEndX = 0;
     const swipeThreshold = 50; // Минимальная дистанция для свайпа
+    let hintDismissed = false; // Флаг для отслеживания, была ли закрыта подсказка
 
     const reviews = [
         {
@@ -63,12 +65,18 @@ function initSlider() {
         let newIndex = currentSlide + 1;
         if (newIndex >= reviews.length) newIndex = 0;
         showSlide(newIndex);
+        
+        // Скрываем подсказку после первого свайпа
+        dismissSwipeHint();
     }
 
     function prevSlide() {
         let newIndex = currentSlide - 1;
         if (newIndex < 0) newIndex = reviews.length - 1;
         showSlide(newIndex);
+        
+        // Скрываем подсказку после первого свайпа
+        dismissSwipeHint();
     }
 
     function startAutoSlide() {
@@ -84,25 +92,25 @@ function initSlider() {
         clearInterval(autoSlideInterval);
     }
 
-    // Инициализация автопрокрутки
-    startAutoSlide();
-
-    // Обработчики для кнопок (только на десктопе)
-    if (prevBtn && nextBtn) {
-        prevBtn.addEventListener('click', () => {
-            stopAutoSlide();
-            prevSlide();
-            startAutoSlide();
-        });
-
-        nextBtn.addEventListener('click', () => {
-            stopAutoSlide();
-            nextSlide();
-            startAutoSlide();
-        });
+    // Функция для скрытия подсказки
+    function dismissSwipeHint() {
+        if (!hintDismissed && swipeHint) {
+            swipeHint.style.opacity = '0';
+            swipeHint.style.transform = 'translateY(10px)';
+            swipeHint.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            
+            // Удаляем элемент после анимации
+            setTimeout(() => {
+                if (swipeHint && swipeHint.parentNode) {
+                    swipeHint.parentNode.removeChild(swipeHint);
+                }
+            }, 500);
+            
+            hintDismissed = true;
+        }
     }
 
-    // Добавляем обработчики для свайпа на мобильных устройствах
+    // Обработчики для свайпа
     function handleTouchStart(e) {
         touchStartX = e.changedTouches[0].screenX;
     }
@@ -144,16 +152,57 @@ function initSlider() {
         reviewsSliderContainer.style.touchAction = 'pan-y';
     }
 
+    // Инициализация автопрокрутки
+    startAutoSlide();
+
+    // Обработчики для кнопок (только на десктопе)
+    if (prevBtn && nextBtn && window.innerWidth > 768) {
+        prevBtn.addEventListener('click', () => {
+            stopAutoSlide();
+            prevSlide();
+            startAutoSlide();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            stopAutoSlide();
+            nextSlide();
+            startAutoSlide();
+        });
+    }
+
+    // Скрываем кнопки навигации на мобильных
+    if (window.innerWidth <= 768) {
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+    }
+
     // Перезапуск автопрокрутки при изменении размера окна
     window.addEventListener('resize', function() {
         stopAutoSlide();
         startAutoSlide();
+        
+        // Обновляем видимость кнопок при изменении размера
+        if (window.innerWidth <= 768) {
+            if (prevBtn) prevBtn.style.display = 'none';
+            if (nextBtn) nextBtn.style.display = 'none';
+        } else {
+            if (prevBtn) prevBtn.style.display = '';
+            if (nextBtn) nextBtn.style.display = '';
+        }
     });
 
     // Остановка автопрокрутки при наведении (только на десктопе)
     if (window.innerWidth > 768 && slider) {
         slider.addEventListener('mouseenter', stopAutoSlide);
         slider.addEventListener('mouseleave', startAutoSlide);
+    }
+    
+    // Скрываем подсказку при клике на нее
+    if (swipeHint) {
+        swipeHint.addEventListener('click', dismissSwipeHint);
+        
+        // Автоматически скрываем подсказку через 10 секунд
+        setTimeout(dismissSwipeHint, 10000);
     }
 }
 
