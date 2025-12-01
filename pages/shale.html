@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шале - База отдыха "ЭХО"</title>
+    <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../styles/apartment-details.css">
+</head>
+<body>
+    <div class="container">
+        <a href="apartments.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Назад
+        </a>
+
+        <header class="apartment-header">
+            <div class="header-left">
+                <h1>Шале</h1>
+                <div class="address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>ул. Лесная, 5</span>
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="price">от 25 000 ₽</div>
+                <div class="price-note">за сутки</div>
+            </div>
+            
+        </header>
+
+        <!-- ИСПРАВЛЕННАЯ ГАЛЕРЕЯ С 2 МИНИАТЮРАМИ -->
+        <section class="gallery-container">
+            <div class="gallery">
+                <!-- Основное изображение (70%) - НЕ открывает лайтбокс -->
+                <div class="main-image-container">
+                    <img src="../images/apartments/shale/shale1.jpg" alt="Шале" class="main-image">
+                </div>
+                
+                <!-- Миниатюры (30%) -->
+                <div class="thumbnails-container">
+                    <!-- ТОЛЬКО 2 МИНИАТЮРЫ - меняют основное фото -->
+                    <div class="thumbnail active">
+                        <img src="../images/apartments/shale/shale2.jpg" alt="Интерьер шале">
+                    </div>
+                    <div class="thumbnail">
+                        <img src="../images/apartments/shale/shale3.jpg" alt="Спальня в шале">
+                    </div>
+                    
+                    <!-- Блок +X фото - с обложкой и БЕЗ ГРАНИЦ -->
+                    
+<div class="thumbnail more-photos" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../images/apartments/shale/shale5.jpg')">
+    <span>+10 фото</span>
+</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="description-section">
+            <div class="characteristics">
+                <h2>Характеристики</h2>
+                <ul class="characteristics-list">
+                    <li>
+                        <div class="characteristics-icon"><i class="fas fa-vector-square"></i></div>
+                        <strong>Площадь:</strong> 85м²
+                    </li>
+                    <li>
+                        <div class="characteristics-icon"><i class="fas fa-door-open"></i></div>
+                        <strong>Комнаты:</strong> 3 комнаты
+                    </li>
+                    <li>
+                        <div class="characteristics-icon"><i class="fas fa-bed"></i></div>
+                        <strong>Спальные места:</strong> 2 двуспальные кровати, 2 односпальные кровати, 1 диван-кровать
+                    </li>
+                </ul>
+            </div>
+            <div class="text-description">
+                <p>Просторное шале с камином и панорамными окнами, выходящими в лес. Идеально подходит для большой семьи или компании друзей. Деревянная отделка создает уютную атмосферу, а современные удобства обеспечивают комфортное проживание.</p>
+            </div>
+        </section>
+
+        <section class="tags-section">
+            <div class="tag-category">
+                <h3>Обеденная зона</h3>
+                <div class="tags">
+                    <span class="tag">Стол на 8 персон</span>
+                    <span class="tag">Кухонный уголок</span>
+                    <span class="tag">Посуда</span>
+                </div>
+            </div>
+            <div class="tag-category">
+                <h3>Основные</h3>
+                <div class="tags">
+                    <span class="tag">Кондиционер</span>
+                    <span class="tag">Интернет</span>
+                    <span class="tag">Телевизор</span>
+                    <span class="tag">Можно с детьми</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Лайтбокс -->
+    <div id="lightbox" class="lightbox">
+        <button class="close-lightbox">&times;</button>
+        <div class="lightbox-content">
+            <img class="lightbox-image" src="" alt="">
+            <div class="lightbox-counter">1/14</div>
+            <div class="lightbox-thumbnails"></div>
+        </div>
+        <button class="lightbox-nav prev">&#10094;</button>
+        <button class="lightbox-nav next">&#10095;</button>
+    </div>
+
+    <script src="../scripts/apartment-details.js"></script>
+</body>
+</html>

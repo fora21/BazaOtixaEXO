@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Апартаменты - База отдыха "ЭХО"</title>
+    <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/footer.css">
+    <link rel="stylesheet" href="../styles/apartments.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../images/logo.png" alt="База отдыха ЭХО">
+                </div>
+                <nav class="nav">
+                    <a href="../index.html" class="nav-link">Главная</a>
+                    <a href="apartments.html" class="nav-link">Апартаменты</a>
+                    <a href="entertainment.html" class="nav-link">Развлечения</a>
+                </nav>
+                <div class="header-contacts">
+    <span class="phone">+7 (924) 543 76-23</span>
+    <a href="apartments.html" class="btn-book">Забронировать</a>
+</div>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            
+            <!-- Мобильное меню -->
+            <div class="mobile-menu" id="mobileMenu">
+                <nav class="mobile-nav">
+                    <a href="../index.html" class="mobile-nav-link">Главная</a>
+                    <a href="apartments.html" class="mobile-nav-link">Апартаменты</a>
+                    <a href="entertainment.html" class="mobile-nav-link">Развлечения</a>
+                    <div class="mobile-contacts">
+    <span class="mobile-phone">+7 (924) 543 76-23</span>
+    <a href="apartments.html" class="mobile-btn-book">Забронировать</a>
+</div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Filter Section -->
+        <section class="apartments-filter">
+            <div class="container">
+                <div class="filter-content">
+                    <div class="filter-item">
+                        <label for="check-in">Заезд</label>
+                        <input type="date" id="check-in" name="checkin" class="date-input">
+                    </div>
+                    <div class="filter-item">
+                        <label for="check-out">Выезд</label>
+                        <input type="date" id="check-out" name="checkout" class="date-input">
+                    </div>
+                    <div class="filter-item">
+                        <label for="guests-dropdown">Гости</label>
+                        <div class="guests-dropdown" id="guestsDropdown">
+                            <div class="guests-display" id="guestsDisplay">Выберите</div>
+                            <div class="guests-selector" id="guestsSelector">
+                                <div class="guest-category">
+                                    <span>Взрослые (с 17 лет)</span>
+                                    <div class="guest-controls">
+                                        <button class="guest-btn minus" data-category="adults">-</button>
+                                        <span class="guest-count" data-category="adults">0</span>
+                                        <button class="guest-btn plus" data-category="adults">+</button>
+                                    </div>
+                                </div>
+                                <div class="guest-category">
+                                    <span>Дети (0-3 лет)</span>
+                                    <div class="guest-controls">
+                                        <button class="guest-btn minus" data-category="children03">-</button>
+                                        <span class="guest-count" data-category="children03">0</span>
+                                        <button class="guest-btn plus" data-category="children03">+</button>
+                                    </div>
+                                </div>
+                                <div class="guest-category">
+                                    <span>Дети (4-16 лет)</span>
+                                    <div class="guest-controls">
+                                        <button class="guest-btn minus" data-category="children416">-</button>
+                                        <span class="guest-count" data-category="children416">0</span>
+                                        <button class="guest-btn plus" data-category="children416">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-show" id="showApartments">Показать</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Apartments List -->
+        <section class="apartments-list">
+            <div class="container">
+                <div class="apartments-container" id="apartmentsContainer">
+                    <!-- Карточки апартаментов будут вставлены через JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>О нас</h3>
+                    <p>База отдыха ЭХО - известное место экологического отдыха на Алтае, находится в самом сердце природы.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Услуги</h3>
+                    <p>Для вас домики для проживания, чистый воздух, пляж на заливе, кафе, баня, бильярд и многое другое.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+7 (4012) 453120</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>bazarelaxEXO@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>село Колывань, Колыванский сельсовет, Курьинский район, Алтайский край</span>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Мы в сети</h3>
+                    <p>Присоединяйтесь к нам и получайте свежую информацию, участвуйте в розыгрышах путевок!</p>
+                    <div class="social-links">
+                        <a href="#">VK</a>
+                        <a href="#">Telegram</a>
+                        <a href="#">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 ООО "База отдыха ЭХО". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/apartments.js"></script>
+</body>
+</html>
