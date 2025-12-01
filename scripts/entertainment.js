@@ -3,7 +3,7 @@ let currentSlide = 0;
 let slideInterval;
 let touchStartX = 0;
 let touchEndX = 0;
-const SWIPE_THRESHOLD = 50; // Минимальная дистанция для распознавания свайпа
+const SWIPE_THRESHOLD = 50;
 
 function initServicesSlider() {
     const slides = document.querySelectorAll('.slide');
@@ -13,7 +13,7 @@ function initServicesSlider() {
     // Очищаем контейнер точек перед созданием новых
     dotsContainer.innerHTML = '';
     
-    // Create dots - только по количеству слайдов (6)
+    // Create dots
     slides.forEach((_, index) => {
         const dot = document.createElement('div');
         dot.className = `dot ${index === 0 ? 'active' : ''}`;
@@ -21,7 +21,7 @@ function initServicesSlider() {
         dotsContainer.appendChild(dot);
     });
     
-    // Добавляем обработчики для свайпа (только для мобильных устройств)
+    // Добавляем обработчики для свайпа
     addSwipeSupport(sliderContainer);
     
     // Start auto slide
@@ -38,12 +38,10 @@ function initServicesSlider() {
 function addSwipeSupport(element) {
     if (!element) return;
     
-    // Обработчики для тач-устройств
     element.addEventListener('touchstart', handleTouchStart, { passive: true });
     element.addEventListener('touchmove', handleTouchMove, { passive: true });
     element.addEventListener('touchend', handleTouchEnd, { passive: true });
     
-    // Оптимизация для тач-устройств
     element.style.touchAction = 'pan-y';
 }
 
@@ -58,24 +56,18 @@ function handleTouchMove(e) {
 function handleTouchEnd() {
     const diff = touchStartX - touchEndX;
     
-    // Проверяем, был ли свайп достаточно длинным
     if (Math.abs(diff) > SWIPE_THRESHOLD) {
-        // Останавливаем автопрокрутку при свайпе
         stopAutoSlide();
         
         if (diff > 0) {
-            // Свайп влево - следующий слайд
             nextSlide();
         } else {
-            // Свайп вправо - предыдущий слайд
             prevSlide();
         }
         
-        // Перезапускаем автопрокрутку через 5 секунд
         setTimeout(startAutoSlide, 5000);
     }
     
-    // Сбрасываем значения
     touchStartX = 0;
     touchEndX = 0;
 }
@@ -99,7 +91,6 @@ function nextSlide() {
     goToSlide(nextIndex);
 }
 
-// Добавляем функцию для перехода к предыдущему слайду
 function prevSlide() {
     const slides = document.querySelectorAll('.slide');
     const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
@@ -218,17 +209,9 @@ window.addEventListener('click', function(event) {
     }
 });
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initServicesSlider();
-});
 // Promotions Horizontal Slider
 let currentPromotionSlide = 0;
-let isDragging = false;
-let startPos = 0;
-let currentTranslate = 0;
-let prevTranslate = 0;
-let animationID;
+let promotionSlideInterval;
 
 function initPromotionsSlider() {
     const slider = document.getElementById('promotionsSlider');
@@ -237,6 +220,11 @@ function initPromotionsSlider() {
     const indicatorsContainer = document.getElementById('promotionsIndicators');
     const slides = document.querySelectorAll('.promotion-slide');
     const slidesCount = slides.length;
+    
+    // Добавляем переменные для свайпа
+    let promoTouchStartX = 0;
+    let promoTouchEndX = 0;
+    const PROMO_SWIPE_THRESHOLD = 50;
 
     // Create indicators
     indicatorsContainer.innerHTML = '';
@@ -247,32 +235,66 @@ function initPromotionsSlider() {
         indicatorsContainer.appendChild(indicator);
     }
 
-    // Touch events for mobile
-    slider.addEventListener('touchstart', touchStart);
-    slider.addEventListener('touchmove', touchMove);
-    slider.addEventListener('touchend', touchEnd);
-
-    // Mouse events for desktop
-    slider.addEventListener('mousedown', touchStart);
-    slider.addEventListener('mousemove', touchMove);
-    slider.addEventListener('mouseup', touchEnd);
-    slider.addEventListener('mouseleave', touchEnd);
+    // Добавляем обработчики для свайпа на слайдер акций
+    function handlePromoTouchStart(e) {
+        promoTouchStartX = e.touches[0].clientX;
+    }
+    
+    function handlePromoTouchMove(e) {
+        promoTouchEndX = e.touches[0].clientX;
+    }
+    
+    function handlePromoTouchEnd() {
+        const diff = promoTouchStartX - promoTouchEndX;
+        
+        if (Math.abs(diff) > PROMO_SWIPE_THRESHOLD) {
+            stopAutoPromotionSlide();
+            
+            if (diff > 0) {
+                goToPromotionSlide(currentPromotionSlide + 1);
+            } else {
+                goToPromotionSlide(currentPromotionSlide - 1);
+            }
+            
+            // Перезапускаем автопрокрутку только на десктопе
+            if (window.innerWidth > 768) {
+                setTimeout(startAutoPromotionSlide, 5000);
+            }
+        }
+        
+        promoTouchStartX = 0;
+        promoTouchEndX = 0;
+    }
+    
+    // Добавляем обработчики свайпа
+    slider.addEventListener('touchstart', handlePromoTouchStart, { passive: true });
+    slider.addEventListener('touchmove', handlePromoTouchMove, { passive: true });
+    slider.addEventListener('touchend', handlePromoTouchEnd, { passive: true });
+    
+    // Оптимизация для тач-устройств
+    slider.style.touchAction = 'pan-y';
 
     // Navigation buttons
     prevBtn.addEventListener('click', () => {
+        stopAutoPromotionSlide();
         goToPromotionSlide(currentPromotionSlide - 1);
+        startAutoPromotionSlide();
     });
 
     nextBtn.addEventListener('click', () => {
+        stopAutoPromotionSlide();
         goToPromotionSlide(currentPromotionSlide + 1);
+        startAutoPromotionSlide();
     });
 
-    // Auto slide
+    // Auto slide (только на десктопе)
     startAutoPromotionSlide();
 
-    // Pause on hover
-    slider.addEventListener('mouseenter', stopAutoPromotionSlide);
-    slider.addEventListener('mouseleave', startAutoPromotionSlide);
+    // Pause on hover (только на десктопе)
+    if (window.innerWidth > 768) {
+        slider.addEventListener('mouseenter', stopAutoPromotionSlide);
+        slider.addEventListener('mouseleave', startAutoPromotionSlide);
+    }
 }
 
 function goToPromotionSlide(index) {
@@ -297,80 +319,26 @@ function goToPromotionSlide(index) {
     indicators.forEach((indicator, i) => {
         indicator.classList.toggle('active', i === currentPromotionSlide);
     });
-
-    // Reset auto slide
-    stopAutoPromotionSlide();
-    startAutoPromotionSlide();
 }
 
 function startAutoPromotionSlide() {
     stopAutoPromotionSlide();
     // Автопрокрутка только на десктопе
     if (window.innerWidth > 768) {
-        slideInterval = setInterval(() => {
+        promotionSlideInterval = setInterval(() => {
             goToPromotionSlide(currentPromotionSlide + 1);
         }, 5000);
     }
 }
 
 function stopAutoPromotionSlide() {
-    if (slideInterval) {
-        clearInterval(slideInterval);
+    if (promotionSlideInterval) {
+        clearInterval(promotionSlideInterval);
     }
-}
-
-// Touch/Mouse events for dragging
-function touchStart(event) {
-    if (event.type === 'touchstart') {
-        startPos = event.touches[0].clientX;
-    } else {
-        startPos = event.clientX;
-        event.preventDefault();
-    }
-    
-    isDragging = true;
-    animationID = requestAnimationFrame(animation);
-    slider.classList.add('grabbing');
-}
-
-function touchMove(event) {
-    if (!isDragging) return;
-    
-    const currentPosition = event.type === 'touchmove' ? event.touches[0].clientX : event.clientX;
-    const diff = currentPosition - startPos;
-    
-    if (Math.abs(diff) > 10) { // Minimum drag distance
-        event.preventDefault();
-    }
-}
-
-function touchEnd() {
-    isDragging = false;
-    cancelAnimationFrame(animationID);
-    
-    const movedBy = currentTranslate - prevTranslate;
-    
-    if (movedBy < -100) {
-        goToPromotionSlide(currentPromotionSlide + 1);
-    } else if (movedBy > 100) {
-        goToPromotionSlide(currentPromotionSlide - 1);
-    }
-    
-    setSliderPosition();
-    slider.classList.remove('grabbing');
-}
-
-function animation() {
-    setSliderPosition();
-    if (isDragging) requestAnimationFrame(animation);
-}
-
-function setSliderPosition() {
-    slider.style.transform = `translateX(${currentTranslate}px)`;
 }
 
 // Обновляем функцию инициализации в DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
     initServicesSlider();
-    initPromotionsSlider(); // Добавляем инициализацию слайдера акций
+    initPromotionsSlider();
 });

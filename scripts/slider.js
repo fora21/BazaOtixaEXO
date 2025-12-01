@@ -2,13 +2,11 @@ function initSlider() {
     const slider = document.getElementById('reviewsSlider');
     const prevBtn = document.querySelector('.slider-btn.prev');
     const nextBtn = document.querySelector('.slider-btn.next');
-    const swipeHint = document.querySelector('.swipe-hint');
     let currentSlide = 0;
     let autoSlideInterval;
     let touchStartX = 0;
     let touchEndX = 0;
     const swipeThreshold = 50; // Минимальная дистанция для свайпа
- 
 
     const reviews = [
         {
@@ -65,16 +63,12 @@ function initSlider() {
         let newIndex = currentSlide + 1;
         if (newIndex >= reviews.length) newIndex = 0;
         showSlide(newIndex);
-        
-        
     }
 
     function prevSlide() {
         let newIndex = currentSlide - 1;
         if (newIndex < 0) newIndex = reviews.length - 1;
         showSlide(newIndex);
-        
-      
     }
 
     function startAutoSlide() {
@@ -88,6 +82,30 @@ function initSlider() {
 
     function stopAutoSlide() {
         clearInterval(autoSlideInterval);
+    }
+
+    // Инициализация автопрокрутки
+    startAutoSlide();
+
+    // Обработчики для кнопок (только на десктопе)
+    if (prevBtn && nextBtn && window.innerWidth > 768) {
+        prevBtn.addEventListener('click', () => {
+            stopAutoSlide();
+            prevSlide();
+            startAutoSlide();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            stopAutoSlide();
+            nextSlide();
+            startAutoSlide();
+        });
+    }
+
+    // Скрываем кнопки навигации на мобильных
+    if (window.innerWidth <= 768) {
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
     }
 
     // Обработчики для свайпа
@@ -132,30 +150,6 @@ function initSlider() {
         reviewsSliderContainer.style.touchAction = 'pan-y';
     }
 
-    // Инициализация автопрокрутки
-    startAutoSlide();
-
-    // Обработчики для кнопок (только на десктопе)
-    if (prevBtn && nextBtn && window.innerWidth > 768) {
-        prevBtn.addEventListener('click', () => {
-            stopAutoSlide();
-            prevSlide();
-            startAutoSlide();
-        });
-
-        nextBtn.addEventListener('click', () => {
-            stopAutoSlide();
-            nextSlide();
-            startAutoSlide();
-        });
-    }
-
-    // Скрываем кнопки навигации на мобильных
-    if (window.innerWidth <= 768) {
-        if (prevBtn) prevBtn.style.display = 'none';
-        if (nextBtn) nextBtn.style.display = 'none';
-    }
-
     // Перезапуск автопрокрутки при изменении размера окна
     window.addEventListener('resize', function() {
         stopAutoSlide();
@@ -176,8 +170,6 @@ function initSlider() {
         slider.addEventListener('mouseenter', stopAutoSlide);
         slider.addEventListener('mouseleave', startAutoSlide);
     }
-    
-    
 }
 
 // Инициализация слайдера при загрузке DOM
