@@ -149,6 +149,10 @@
         font-size: 2rem;
         margin-bottom: 30px;
     }
+
+    .slider-nav {
+    display: none !important;
+    }
     
     .services-content {
         grid-template-columns: 1fr;

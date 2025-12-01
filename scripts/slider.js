@@ -8,7 +8,7 @@ function initSlider() {
     let touchStartX = 0;
     let touchEndX = 0;
     const swipeThreshold = 50; // Минимальная дистанция для свайпа
-    let hintDismissed = false; // Флаг для отслеживания, была ли закрыта подсказка
+ 
 
     const reviews = [
         {
@@ -66,8 +66,7 @@ function initSlider() {
         if (newIndex >= reviews.length) newIndex = 0;
         showSlide(newIndex);
         
-        // Скрываем подсказку после первого свайпа
-        dismissSwipeHint();
+        
     }
 
     function prevSlide() {
@@ -75,8 +74,7 @@ function initSlider() {
         if (newIndex < 0) newIndex = reviews.length - 1;
         showSlide(newIndex);
         
-        // Скрываем подсказку после первого свайпа
-        dismissSwipeHint();
+      
     }
 
     function startAutoSlide() {
@@ -90,24 +88,6 @@ function initSlider() {
 
     function stopAutoSlide() {
         clearInterval(autoSlideInterval);
-    }
-
-    // Функция для скрытия подсказки
-    function dismissSwipeHint() {
-        if (!hintDismissed && swipeHint) {
-            swipeHint.style.opacity = '0';
-            swipeHint.style.transform = 'translateY(10px)';
-            swipeHint.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            
-            // Удаляем элемент после анимации
-            setTimeout(() => {
-                if (swipeHint && swipeHint.parentNode) {
-                    swipeHint.parentNode.removeChild(swipeHint);
-                }
-            }, 500);
-            
-            hintDismissed = true;
-        }
     }
 
     // Обработчики для свайпа
@@ -197,13 +177,7 @@ function initSlider() {
         slider.addEventListener('mouseleave', startAutoSlide);
     }
     
-    // Скрываем подсказку при клике на нее
-    if (swipeHint) {
-        swipeHint.addEventListener('click', dismissSwipeHint);
-        
-        // Автоматически скрываем подсказку через 10 секунд
-        setTimeout(dismissSwipeHint, 10000);
-    }
+    
 }
 
 // Инициализация слайдера при загрузке DOM

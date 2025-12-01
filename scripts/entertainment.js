@@ -305,9 +305,12 @@ function goToPromotionSlide(index) {
 
 function startAutoPromotionSlide() {
     stopAutoPromotionSlide();
-    slideInterval = setInterval(() => {
-        goToPromotionSlide(currentPromotionSlide + 1);
-    }, 5000);
+    // Автопрокрутка только на десктопе
+    if (window.innerWidth > 768) {
+        slideInterval = setInterval(() => {
+            goToPromotionSlide(currentPromotionSlide + 1);
+        }, 5000);
+    }
 }
 
 function stopAutoPromotionSlide() {
