@@ -120,6 +120,9 @@ class ApartmentGallery {
                 '../images/apartments/swiss_apartment/swiss10.jpg'
             ],
             'beach_house': [
+                '../images/apartments/beach_house/beach2.jpg',
+                '../images/apartments/beach_house/beach3.jpg',
+                '../images/apartments/beach_house/beach4.jpg',
                 '../images/apartments/beach_house/beach5.jpg',
                 '../images/apartments/beach_house/beach6.jpg',
                 '../images/apartments/beach_house/beach7.jpg',
@@ -127,13 +130,19 @@ class ApartmentGallery {
                 '../images/apartments/beach_house/beach9.jpg',
                 '../images/apartments/beach_house/beach10.jpg',
                 '../images/apartments/beach_house/beach11.jpg',
-                '../images/apartments/beach_house/beach12.jpg'
+                '../images/apartments/beach_house/beach12.jpg',
+                '../images/apartments/beach_house/beach13.jpg',
+                '../images/apartments/beach_house/beach14.jpg'
             ],
             'hotel_standard': [
+                '../images/apartments/hotel_standard/hotel2.jpg',   
+                '../images/apartments/hotel_standard/hotel3.jpg',                
+                '../images/apartments/hotel_standard/hotel4.jpg',
                 '../images/apartments/hotel_standard/hotel5.jpg',
                 '../images/apartments/hotel_standard/hotel6.jpg',
                 '../images/apartments/hotel_standard/hotel7.jpg',
-                '../images/apartments/hotel_standard/hotel8.jpg'
+                '../images/apartments/hotel_standard/hotel8.jpg',
+                '../images/apartments/hotel_standard/hotel9.jpg'
             ]
         };
 

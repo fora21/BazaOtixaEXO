@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'shale': {
             name: 'Шале',
             price: 35000,
-            address: 'ул. Лесная, 5',
+            address: 'ул. Молодежная, 5',
             image: '../images/apartments/shale1.jpg',
             formspree: 'https://formspree.io/f/xblnlddz'
         },
@@ -14,49 +14,49 @@ document.addEventListener('DOMContentLoaded', function() {
             price: 18000,
             address: 'ул. Таежная, 7',
             image: '../images/apartments/forest1.jpg',
-            formspree: 'https://formspree.io/f/YOUR_FOREST_HOUSE_ENDPOINT'
+            formspree: 'https://formspree.io/f/mdkqkarl'
         },
         'tent_places': {
             name: 'Палаточные места',
             price: 3000,
             address: 'Роща',
             image: '../images/apartments/tent1.jpg',
-            formspree: 'https://formspree.io/f/YOUR_TENT_PLACES_ENDPOINT'
+            formspree: 'https://formspree.io/f/xjknkgqo'
         },
         'hostel': {
             name: 'Хостел',
             price: 8000,
             address: 'ул. Молодежная, 21',
             image: '../images/apartments/hostel1.jpg',
-            formspree: 'https://formspree.io/f/YOUR_HOSTEL_ENDPOINT'
+            formspree: 'https://formspree.io/f/mnnenjkv'
         },
         'merchant_apartment': {
             name: 'Купеческие апартаменты',
             price: 32000,
             address: 'ул. Историческая, 3',
             image: '../images/apartments/merchant1.jpg',
-            formspree: 'https://formspree.io/f/YOUR_MERCHANT_ENDPOINT'
+            formspree: 'https://formspree.io/f/xblnldvo'
         },
         'swiss_apartment': {
             name: 'Швейцарские апартаменты',
             price: 28000,
             address: 'ул. Горная, 15',
             image: '../images/apartments/swiss1.jpg',
-            formspree: 'https://formspree.io/f/YOUR_SWISS_ENDPOINT'
+            formspree: 'https://formspree.io/f/mrbnbedk'
         },
         'beach_house': {
             name: 'Дом у пляжа',
-            price: 45000,
+            price: 78000,
             address: 'ул. Пляжная, 8',
             image: '../images/apartments/beach1.jpg',
-            formspree: 'https://formspree.io/f/YOUR_BEACH_HOUSE_ENDPOINT'
+            formspree: 'https://formspree.io/f/mwpgpvzo'
         },
         'hotel_standard': {
             name: 'Гостиница Стандарт',
             price: 15000,
-            address: 'ул. Центральная, 12',
+            address: 'ул. Молодежная, 21',
             image: '../images/apartments/hotel1.jpg',
-            formspree: 'https://formspree.io/f/YOUR_HOTEL_ENDPOINT'
+            formspree: 'https://formspree.io/f/mrbnbeea'
         }
     };
 

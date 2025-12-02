@@ -86,7 +86,7 @@ const apartmentsData = [
     {
         id: "hotel_standard",
         title: "Гостиница Стандарт",
-        address: "ул. Центральная, 12",
+        address: "ул. Молодежная, 21",
         area: "35м²",
         rooms: "1 комната",
         beds: "2 спальных места",
@@ -95,17 +95,19 @@ const apartmentsData = [
         images: [
             "apartments/hotel1.jpg",
             "apartments/hotel2.jpg",
-            "apartments/hotel3.jpg"
+            "apartments/hotel3.jpg",
+            "apartments/hotel4.jpg",
+            "apartments/hotel5.jpg"
         ]
     },
     {
         id: "beach_house",
         title: "Дом у пляжа",
-        address: "ул. Пляжная, 8",
+        address: "ул. Бирюзовая, 8",
         area: "120м²",
         rooms: "4 комнаты",
         beds: "6+2 спальных мест",
-        price: "45 000",
+        price: "78 000",
         tags: ["Кондиционер", "Интернет", "Телевизор", "Можно с детьми", "Холодильник", "Кухонная плита", "Вид на озеро", "Терраса", "Можно с животными"],
         images: [
             "apartments/beach1.jpg",
