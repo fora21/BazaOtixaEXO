@@ -1,31 +1,28 @@
-// Галерея и лайтбокс - с полным набором фотографий
+// Упрощенная галерея и лайтбокс
 class ApartmentGallery {
     constructor() {
         this.currentImageIndex = 0;
         this.allImages = [];
+        this.touchStartX = 0;
+        this.touchEndX = 0;
+        this.isMobile = window.innerWidth <= 768;
         this.init();
+        
+        window.addEventListener('resize', () => {
+            this.isMobile = window.innerWidth <= 768;
+        });
     }
 
     init() {
         this.setupGallery();
         this.setupLightbox();
-    
     }
 
     setupGallery() {
-        const mainImage = document.querySelector('.main-image');
-        const thumbnails = document.querySelectorAll('.thumbnail:not(.more-photos)');
         const morePhotos = document.querySelector('.more-photos');
 
-        // Собираем все изображения
+        // Собираем все изображения для лайтбокса
         this.collectAllImages();
-
-        // Обработчики для ДВУХ миниатюр - только меняют основное фото
-        thumbnails.forEach((thumb, index) => {
-            thumb.addEventListener('click', () => {
-                this.setMainImage(index);
-            });
-        });
 
         // ТОЛЬКО блок +X фото открывает лайтбокс
         if (morePhotos) {
@@ -35,45 +32,47 @@ class ApartmentGallery {
         }
 
         // Основное изображение НЕ открывает лайтбокс
+        const mainImage = document.querySelector('.main-image');
         mainImage.style.cursor = 'default';
+        
+        // Статичные миниатюры НЕ кликабельны
+        const staticThumbs = document.querySelectorAll('.static-thumb');
+        staticThumbs.forEach(thumb => {
+            thumb.style.cursor = 'default';
+        });
     }
 
     collectAllImages() {
         // Основное изображение
         const mainImage = document.querySelector('.main-image').src;
         
-        // ДВЕ миниатюры
-        const thumbnails = document.querySelectorAll('.thumbnail:not(.more-photos) img');
-        const thumbImages = Array.from(thumbnails).map(thumb => thumb.src);
+        // Две статичные миниатюры
+        const staticThumbs = document.querySelectorAll('.static-thumb img');
+        const thumbImages = Array.from(staticThumbs).map(thumb => thumb.src);
         
         // Объединяем видимые изображения
         this.allImages = [mainImage, ...thumbImages];
         
-        // ДОБАВЛЯЕМ ОСТАЛЬНЫЕ 10 ФОТОГРАФИЙ
-        // Замените пути на ваши реальные пути к фотографиям
+        // Добавляем дополнительные фото
         const apartmentType = this.getApartmentType();
         this.addAdditionalImages(apartmentType);
     }
 
     getApartmentType() {
-        // Определяем тип апартамента из URL или заголовка
         const url = window.location.pathname;
         const pageName = url.split('/').pop().replace('.html', '');
         return pageName;
     }
 
     addAdditionalImages(apartmentType) {
-        // Добавляем дополнительные фото в зависимости от типа апартамента
         const additionalImages = this.getAdditionalImagesForApartment(apartmentType);
         this.allImages = [...this.allImages, ...additionalImages];
     }
 
     getAdditionalImagesForApartment(apartmentType) {
-        // Возвращаем массив с путями к дополнительным фото
-        // ЗАМЕНИТЕ ЭТИ ПУТИ НА ВАШИ РЕАЛЬНЫЕ ПУТИ К ФОТОГРАФИЯМ
-        
         const imagePaths = {
             'shale': [
+                '../images/apartments/shale/shale4.jpg',
                 '../images/apartments/shale/shale5.jpg',
                 '../images/apartments/shale/shale6.jpg', 
                 '../images/apartments/shale/shale7.jpg',
@@ -82,8 +81,7 @@ class ApartmentGallery {
                 '../images/apartments/shale/shale10.jpg',
                 '../images/apartments/shale/shale11.jpg',
                 '../images/apartments/shale/shale12.jpg',
-                '../images/apartments/shale/shale13.jpg',
-                '../images/apartments/shale/shale14.jpg'
+                '../images/apartments/shale/shale13.jpg'
             ],
             'forest_house': [
                 '../images/apartments/forest_house/forest5.jpg',
@@ -142,20 +140,6 @@ class ApartmentGallery {
         return imagePaths[apartmentType] || [];
     }
 
-    setMainImage(index) {
-        const mainImage = document.querySelector('.main-image');
-        const thumbnails = document.querySelectorAll('.thumbnail:not(.more-photos)');
-        
-        // Обновляем основное изображение
-        mainImage.src = this.allImages[index];
-        this.currentImageIndex = index;
-        
-        // Обновляем активную миниатюру
-        thumbnails.forEach((thumb, i) => {
-            thumb.classList.toggle('active', i === index);
-        });
-    }
-
     setupLightbox() {
         this.lightbox = document.getElementById('lightbox');
         this.lightboxImage = document.querySelector('.lightbox-image');
@@ -164,6 +148,7 @@ class ApartmentGallery {
         this.prevBtn = document.querySelector('.prev');
         this.nextBtn = document.querySelector('.next');
         this.thumbnailsContainer = document.querySelector('.lightbox-thumbnails');
+        this.dotsContainer = document.querySelector('.lightbox-dots');
 
         this.closeBtn.addEventListener('click', () => this.closeLightbox());
         this.prevBtn.addEventListener('click', () => this.navigate(-1));
@@ -175,6 +160,16 @@ class ApartmentGallery {
             }
         });
 
+        // Свайп на мобильных
+        this.lightbox.addEventListener('touchstart', (e) => {
+            this.touchStartX = e.changedTouches[0].clientX;
+        });
+
+        this.lightbox.addEventListener('touchend', (e) => {
+            this.touchEndX = e.changedTouches[0].clientX;
+            this.handleSwipe();
+        });
+
         document.addEventListener('keydown', (e) => {
             if (this.lightbox.style.display === 'flex') {
                 if (e.key === 'ArrowLeft') this.navigate(-1);
@@ -184,12 +179,30 @@ class ApartmentGallery {
         });
     }
 
+    handleSwipe() {
+        const minSwipeDistance = 50;
+        const swipeDistance = this.touchEndX - this.touchStartX;
+
+        if (Math.abs(swipeDistance) > minSwipeDistance) {
+            if (swipeDistance > 0) {
+                this.navigate(-1);
+            } else {
+                this.navigate(1);
+            }
+        }
+    }
+
     openLightbox(startIndex) {
         this.currentImageIndex = startIndex;
         this.showImage(startIndex);
         this.lightbox.style.display = 'flex';
         document.body.style.overflow = 'hidden';
-        this.createLightboxThumbnails();
+        
+        if (this.isMobile) {
+            this.createLightboxDots();
+        } else {
+            this.createLightboxThumbnails();
+        }
     }
 
     closeLightbox() {
@@ -202,9 +215,15 @@ class ApartmentGallery {
         this.lightboxImage.src = this.allImages[index];
         this.lightboxCounter.textContent = `${index + 1}/${this.allImages.length}`;
         
-        document.querySelectorAll('.lightbox-thumb').forEach((thumb, i) => {
-            thumb.classList.toggle('active', i === index);
-        });
+        if (this.isMobile) {
+            document.querySelectorAll('.lightbox-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        } else {
+            document.querySelectorAll('.lightbox-thumb').forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+        }
     }
 
     navigate(direction) {
@@ -237,7 +256,23 @@ class ApartmentGallery {
         });
     }
 
-
+    createLightboxDots() {
+        this.dotsContainer.innerHTML = '';
+        
+        this.allImages.forEach((src, index) => {
+            const dot = document.createElement('button');
+            dot.className = 'lightbox-dot';
+            if (index === this.currentImageIndex) {
+                dot.classList.add('active');
+            }
+            
+            dot.addEventListener('click', () => {
+                this.showImage(index);
+            });
+            
+            this.dotsContainer.appendChild(dot);
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

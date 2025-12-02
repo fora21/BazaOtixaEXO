@@ -23,39 +23,37 @@
                 <h1>Шале</h1>
                 <div class="address">
                     <i class="fas fa-map-marker-alt"></i>
-                    <span>ул. Лесная, 5</span>
+                    <span>ул. Молодежная, 5</span>
                 </div>
             </div>
             <div class="header-center">
-                <div class="price">от 25 000 ₽</div>
+                <div class="price">от 35 000 ₽</div>
                 <div class="price-note">за сутки</div>
             </div>
-            
         </header>
 
-        <!-- ИСПРАВЛЕННАЯ ГАЛЕРЕЯ С 2 МИНИАТЮРАМИ -->
         <section class="gallery-container">
             <div class="gallery">
-                <!-- Основное изображение (70%) - НЕ открывает лайтбокс -->
+                <!-- Основное изображение (статичное) -->
                 <div class="main-image-container">
                     <img src="../images/apartments/shale/shale1.jpg" alt="Шале" class="main-image">
                 </div>
                 
-                <!-- Миниатюры (30%) -->
+                <!-- Миниатюры (тоже статичные, без клика) -->
                 <div class="thumbnails-container">
-                    <!-- ТОЛЬКО 2 МИНИАТЮРЫ - меняют основное фото -->
-                    <div class="thumbnail active">
+                    <!-- Статичная миниатюра 1 -->
+                    <div class="thumbnail static-thumb">
                         <img src="../images/apartments/shale/shale2.jpg" alt="Интерьер шале">
                     </div>
-                    <div class="thumbnail">
+                    <!-- Статичная миниатюра 2 -->
+                    <div class="thumbnail static-thumb">
                         <img src="../images/apartments/shale/shale3.jpg" alt="Спальня в шале">
                     </div>
                     
-                    <!-- Блок +X фото - с обложкой и БЕЗ ГРАНИЦ -->
-                    
-<div class="thumbnail more-photos" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../images/apartments/shale/shale5.jpg')">
-    <span>+10 фото</span>
-</div>
+                    <!-- ТОЛЬКО ЭТА КНОПКА КЛИКАБЕЛЬНА -->
+                    <div class="thumbnail more-photos" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../images/apartments/shale/shale4.jpg')">
+                        <span>+10 фото</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -90,6 +88,8 @@
                     <span class="tag">Стол на 8 персон</span>
                     <span class="tag">Кухонный уголок</span>
                     <span class="tag">Посуда</span>
+                    <span class="tag">Барбекю</span>
+                    <span class="tag">Детская кроватка и стульчик для кормления (по запросу)</span>
                 </div>
             </div>
             <div class="tag-category">
@@ -99,17 +99,45 @@
                     <span class="tag">Интернет</span>
                     <span class="tag">Телевизор</span>
                     <span class="tag">Можно с детьми</span>
+                    <span class="tag">Вид на лес</span>
+                    <span class="tag">Можно с животными</span>
+                </div>
+            </div>
+            <div class="tag-category">
+                <h3>В номере</h3>
+                <div class="tags">
+                    <span class="tag">Холодильник</span>
+                    <span class="tag">Кухонная плита</span>
+                    <span class="tag">Посудомоечная машина</span>
+                    <span class="tag">Кофемашина</span>
+                    <span class="tag">Стиральная машина</span>
+                    <span class="tag">Wi-Fi</span>
+                </div>
+            </div>
+            <div class="tag-category">
+                <h3>Ванная комната</h3>
+                <div class="tags">
+                    <span class="tag">2 ванные комнаты</span>
+                    <span class="tag">Душ</span>
+                    <span class="tag">Ванна</span>
+                    <span class="tag">Фен</span>
+                    <span class="tag">Полотенца</span>
+                    <span class="tag">Халаты</span>
+                    <span class="tag">Одноразовые тапочки</span>
+                    <span class="tag">Джакузи</span>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Лайтбокс -->
     <div id="lightbox" class="lightbox">
         <button class="close-lightbox">&times;</button>
         <div class="lightbox-content">
             <img class="lightbox-image" src="" alt="">
             <div class="lightbox-counter">1/14</div>
+            <!-- Точки для мобильной версии -->
+            <div class="lightbox-dots"></div>
+            <!-- Миниатюры только для ПК -->
             <div class="lightbox-thumbnails"></div>
         </div>
         <button class="lightbox-nav prev">&#10094;</button>
