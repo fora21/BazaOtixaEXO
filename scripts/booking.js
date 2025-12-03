@@ -32,15 +32,15 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         'merchant_apartment': {
             name: 'Купеческие апартаменты',
-            price: 32000,
-            address: 'ул. Историческая, 3',
+            price: 40000,
+            address: 'ул. Молодежная, 6',
             image: '../images/apartments/merchant1.jpg',
             formspree: 'https://formspree.io/f/xblnldvo'
         },
         'swiss_apartment': {
             name: 'Швейцарские апартаменты',
             price: 28000,
-            address: 'ул. Горная, 15',
+            address: 'ул. Горная, 2',
             image: '../images/apartments/swiss1.jpg',
             formspree: 'https://formspree.io/f/mrbnbedk'
         },

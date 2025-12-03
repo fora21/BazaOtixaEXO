@@ -103,21 +103,23 @@ class ApartmentGallery {
                 '../images/apartments/hostel/hostel7.jpg'
             ],
             'merchant_apartment': [
+                '../images/apartments/merchant_apartment/merchant2.jpg',
+                '../images/apartments/merchant_apartment/merchant3.jpg',
+                '../images/apartments/merchant_apartment/merchant4.jpg',
                 '../images/apartments/merchant_apartment/merchant5.jpg',
                 '../images/apartments/merchant_apartment/merchant6.jpg',
                 '../images/apartments/merchant_apartment/merchant7.jpg',
                 '../images/apartments/merchant_apartment/merchant8.jpg',
                 '../images/apartments/merchant_apartment/merchant9.jpg',
-                '../images/apartments/merchant_apartment/merchant10.jpg',
-                '../images/apartments/merchant_apartment/merchant11.jpg'
+                '../images/apartments/merchant_apartment/merchant10.jpg'
             ],
             'swiss_apartment': [
+                '../images/apartments/swiss_apartment/swiss2.jpg',
+                '../images/apartments/swiss_apartment/swiss3.jpg',
+                '../images/apartments/swiss_apartment/swiss4.jpg',
                 '../images/apartments/swiss_apartment/swiss5.jpg',
                 '../images/apartments/swiss_apartment/swiss6.jpg',
                 '../images/apartments/swiss_apartment/swiss7.jpg',
-                '../images/apartments/swiss_apartment/swiss8.jpg',
-                '../images/apartments/swiss_apartment/swiss9.jpg',
-                '../images/apartments/swiss_apartment/swiss10.jpg'
             ],
             'beach_house': [
                 '../images/apartments/beach_house/beach2.jpg',
